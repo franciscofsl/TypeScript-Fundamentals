@@ -58,8 +58,33 @@ This command:
 2. Adds TypeScript to the `devDependencies` section of your `package.json`
 3. Creates or updates the `package-lock.json` file to lock dependency versions
 
+### Step 3: Initialize TypeScript configuration
+
+```bash
+npm run tsc -- --init
+```
+
+**or alternatively:**
+
+```bash
+npx tsc --init
+```
+
+**What does this command do?**
+
+- **`npm run tsc -- --init`**: Runs the TypeScript compiler through npm scripts with the `--init` flag
+- **`npx tsc --init`**: Directly executes the TypeScript compiler with the initialization flag
+- **`--init`**: Creates a `tsconfig.json` file with default TypeScript configuration
+
+This command:
+1. Creates a `tsconfig.json` file in your project root
+2. Populates it with default TypeScript compiler options and comments
+3. Enables project-wide TypeScript compilation settings
+4. Allows you to customize compilation behavior (target ES version, module system, output directory, etc.)
+
 ### Why these steps?
 
 1. **`npm init -y`** sets up your project structure and dependency management
 2. **`npm install typescript --save-dev`** gives you access to the TypeScript compiler locally
-3. After these steps, you can use TypeScript tools and the compilation command mentioned above
+3. **`npm run tsc -- --init`** or **`npx tsc --init`** creates the TypeScript configuration file for your project
+4. After these steps, you can use TypeScript tools and the compilation command mentioned above with proper project configuration
