@@ -1,3 +1,5 @@
+import { productsURL } from "../lib";
+
 const prefix = '☠️ ';
 
 type ProductType = {
@@ -7,14 +9,53 @@ type ProductType = {
 }
 
 export default async function updateOutput(id: string) {
-    
+    const products = await getProducts();
+    const output = document.querySelector(`#${id}`);
+    const html = layoutProducts(products);
+    if (output && html) {
+        output.innerHTML = html;
+    }
+}
+
+function layoutProducts(products: ProductType[]) {
+    const items = products.map((p) => {
+        const productHtml = `
+<span class="card-id">#${p.id}</span>
+<i class="card-icon ${p.icon} fa-lg"></i>
+<span class="card-name">${p.name}</span>
+        `;
+
+        const cardHtml = `
+<li>
+    <div class="card">
+        <div class="card-content">
+            <div class="content">
+                ${productHtml}
+            </div>
+        </div>
+    </div>
+</li>
+        `;
+
+        return cardHtml;
+    });
+
+    let productsHtml = `<ul>${items.join('')}</ul>`;
+    return productsHtml;
+}
+
+
+async function getProducts(): Promise<ProductType[]> {
+    const response: Response = await fetch(productsURL);
+    const products: ProductType[] = await response.json();
+    return products;
 }
 
 runTheLearningSamples();
 
-function runTheLearningSamples(){
-    
-    function displayProductInfo(id: number, name: string){
+function runTheLearningSamples() {
+
+    function displayProductInfo(id: number, name: string) {
         console.log(`${prefix} typed parameters`);
         console.log(`${prefix}Product ID: ${id}, Name: ${name}`);
     }
@@ -29,11 +70,11 @@ function runTheLearningSamples(){
         return sum;
     }
 
-    const addNumbersExpression = function(a: number, b: number) {
+    const addNumbersExpression = function (a: number, b: number) {
         const sum: number = a + b;
         return sum;
     }
-    
+
     console.log(`${prefix} function expression`);
     console.log(addNumbersExpression(7, 11));
 
@@ -59,7 +100,7 @@ function runTheLearningSamples(){
         }
     ];
 
-    function getProductNames(): string[]{
+    function getProductNames(): string[] {
         return sampleProducts.map(p => p.name);
     }
 
