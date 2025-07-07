@@ -108,8 +108,14 @@ function runTheLearningSamples() {
     console.log(getProductNames());
 
     function getProductById(id: number): ProductType | undefined {
-        return sampleProducts.find(p => p.id === id);
+        // return sampleProducts.find(p => p.id === id);
+
+        return sampleProducts.find(function (p){
+            return p.id === id;
+        });
     }
+
+    const getProductById2 = (id: number): ProductType | undefined => sampleProducts.find(p => p.id === id);
 
     console.log(`${prefix} return ProductType`);
     console.log(getProductById(20));
