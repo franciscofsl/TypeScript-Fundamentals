@@ -110,7 +110,7 @@ function runTheLearningSamples() {
     function getProductById(id: number): ProductType | undefined {
         // return sampleProducts.find(p => p.id === id);
 
-        return sampleProducts.find(function (p){
+        return sampleProducts.find(function (p) {
             return p.id === id;
         });
     }
@@ -127,4 +127,19 @@ function runTheLearningSamples() {
     }
 
     displayProducts(sampleProducts);
+
+
+    const getRandomInt = (max: number) => Math.floor(Math.random() * max);
+
+    function createProduct(name: string, icon?: string): ProductType {
+        const id = getRandomInt(1000);
+
+        const product: ProductType = { id, name };
+        return { id, name, icon };
+    }
+
+    console.log(`${prefix} Optional Parameters`);
+    let pineapple = createProduct('Pineapple', 'fas fa-pineapple');
+    let mango = createProduct('Mango');
+    console.log(pineapple, mango);
 }
