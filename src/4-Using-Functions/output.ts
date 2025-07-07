@@ -129,7 +129,7 @@ function runTheLearningSamples() {
     displayProducts(sampleProducts);
 
 
-    const getRandomInt = (max: number) => Math.floor(Math.random() * max);
+    const getRandomInt = (max: number = 1000) => Math.floor(Math.random() * max);
 
     function createProduct(name: string, icon?: string): ProductType {
         const id = getRandomInt(1000);
@@ -141,5 +141,24 @@ function runTheLearningSamples() {
     console.log(`${prefix} Optional Parameters`);
     let pineapple = createProduct('Pineapple', 'fas fa-pineapple');
     let mango = createProduct('Mango');
+    console.log(pineapple, mango);
+
+    function createProductWithDefault(
+        name: string,
+        icon: string = 'generic-fruit.jpg') : ProductType {
+        const id = getRandomInt();
+
+        // If icon is not provided, use a default value
+        if (!icon) {
+            icon = 'fas fa-question';
+        }
+
+        const product: ProductType = { id, name, icon };
+        return product;
+    }
+
+    console.log(`${prefix} Default Parameters`);
+    pineapple = createProductWithDefault('Pineapple', 'fas fa-pineapple');
+    mango = createProductWithDefault('Mango');
     console.log(pineapple, mango);
 }
