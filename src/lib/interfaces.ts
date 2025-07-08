@@ -17,6 +17,10 @@ type ProductAlias =
       description?: string;
     };
 
+// Even though `Product` is an interface and cannot be instantiated with `new`,
+// we can still use it to type-check object literals that match its structure.
+// This does not create an instance of `Product`, it only ensures the object conforms to its shape.
+// let product = new Product(); ❌ Error
 let product: ProductAlias = 'Food';
 
 // Using a type alias versus an enum
