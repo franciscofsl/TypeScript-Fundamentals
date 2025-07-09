@@ -24,8 +24,8 @@ const foodModel = new GenericModel<FoodProduct>(productsURL);
 
 export default async function updateOutput(id: string = 'output') {
   // const products = await getProducts();
-  // const products = await getList<FoodProduct>(productsURL);
-  const products = await foodModel.getItems();
+   const products = await getList<FoodProduct>(productsURL);
+ // const products = await foodModel.getItems();
 
   const output = document.querySelector(`#${id}`);
   const html = layoutProducts(products);
@@ -98,4 +98,23 @@ async function runTheLearningSamples() {
   let s: string = whatIsIt_typed<string>("Hello, TypeScript!");
   let b: boolean = whatIsIt_typed<boolean>(true);
   console.log(n,s,b);
+
+
+  interface Customer{
+    id: number;
+    name: string;
+  }
+
+  async function getData(){
+    console.log(prefix + ' Generics Functions');
+    
+    const products = await getList<FoodProduct>(productsURL);
+    console.table(products);
+
+    const customers = await getList<Customer>(customersURL);
+    console.table(customers);
+
+  }
+  await getData();
 }
+
