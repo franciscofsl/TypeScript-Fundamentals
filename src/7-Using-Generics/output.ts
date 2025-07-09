@@ -116,5 +116,32 @@ async function runTheLearningSamples() {
 
   }
   await getData();
+
+  interface Model<T>{
+    items: T[] | undefined;
+    getItems: () => Promise<T[]>;
+    getItemById: (id: number) => T | undefined;
+  }
+
+  class FoodModel implements Model<FoodProduct> {
+    public items: FoodProduct[] | undefined;
+
+    constructor(public url: string) {}
+
+    async getItems(): Promise<FoodProduct[]> {
+      this.items = await getList<FoodProduct>(this.url);
+      return this.items;
+    }
+
+    getItemById(id: number): FoodProduct | undefined {
+      return this.items ? this.items.find((p) => (id === p.id)) : undefined;
+    }
+  }
+
+  const foodModel = new FoodModel(productsURL);
+  const foodProducts = await foodModel.getItems();
+  
+  console.log(prefix + ' Generics Classes');  
+  console.table(foodProducts);
 }
 
