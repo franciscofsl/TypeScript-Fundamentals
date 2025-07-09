@@ -1,3 +1,3 @@
-import updateOutput from './output';
+import productOutput from './output';
 
-updateOutput('output');
+productOutput.updateOutput('output');
