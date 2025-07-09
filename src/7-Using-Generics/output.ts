@@ -6,7 +6,7 @@ interface HasId {
   id: number;
 }
 
-class GenericModel<T extends HasId> {
+class GenericModel<T extends HasId> { // like c# public class Repository<T> where T : IHasId
   public items: T[] | undefined;
   constructor(public url: string) { }
 
