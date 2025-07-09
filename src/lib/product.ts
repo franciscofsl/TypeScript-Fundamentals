@@ -14,3 +14,10 @@ export class FoodProduct extends ProductBase {
     return !!this.id && !!this.name && !!this.icon;
   }
 }
+
+
+class SportingGoodsProduct extends ProductBase {
+  constructor(id: number, name: string, icon: string) { // custom consturctor, then should use super, like base in c#
+    super(id, name, icon);
+  }
+}
