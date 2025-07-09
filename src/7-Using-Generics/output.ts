@@ -164,9 +164,11 @@ async function runTheLearningSamples() {
     // foodItem.icon = 'fa fa-apple';
   }
 
+  // The 'pear' object does not have all the properties required by the 'FoodProduct' type.
+  // Using 'Partial<FoodProduct>' allows us to assign an object that only has some of the properties defined in 'FoodProduct'.
+  // This is useful when you want to work with incomplete data or build up an object step by step.
   const pear = { name: 'pear' };
-  //  const pearFood: FoodProduct = pear;
-  const pearFood: Partial<FoodProduct> = pear; // Partial allows partial properties of FoodProduct
-
+  // const pearFood: FoodProduct = pear; // Error: 'pear' is missing required properties
+  const pearFood: Partial<FoodProduct> = pear; // OK: 'Partial' makes all properties optional
 }
 
