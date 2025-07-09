@@ -24,7 +24,7 @@ const foodModel = new GenericModel<FoodProduct>(productsURL);
 
 export default async function updateOutput(id: string = 'output') {
   // const products = await getProducts();
- //  const products = await getList<FoodProduct>(productsURL);
+  //  const products = await getList<FoodProduct>(productsURL);
   const products = await foodModel.getItems();
 
   const output = document.querySelector(`#${id}`);
@@ -83,12 +83,12 @@ async function runTheLearningSamples() {
   }
 
   console.log(prefix + ' Generics Overview');
-  console.log(whatIsIt_number(42)); 
+  console.log(whatIsIt_number(42));
 
-   function whatIsIt_string(arg: string): string {
+  function whatIsIt_string(arg: string): string {
     return arg;
   }
-  console.log(whatIsIt_string("String value")); 
+  console.log(whatIsIt_string("String value"));
 
   function whatIsIt_typed<T>(arg: T): T {
     return arg;
@@ -97,17 +97,17 @@ async function runTheLearningSamples() {
   let n = whatIsIt_typed<number>(56);
   let s: string = whatIsIt_typed<string>("Hello, TypeScript!");
   let b: boolean = whatIsIt_typed<boolean>(true);
-  console.log(n,s,b);
+  console.log(n, s, b);
 
 
-  interface Customer{
+  interface Customer {
     id: number;
     name: string;
   }
 
-  async function getData(){
+  async function getData() {
     console.log(prefix + ' Generics Functions');
-    
+
     const products = await getList<FoodProduct>(productsURL);
     console.table(products);
 
@@ -117,7 +117,7 @@ async function runTheLearningSamples() {
   }
   await getData();
 
-  interface Model<T>{
+  interface Model<T> {
     items: T[] | undefined;
     getItems: () => Promise<T[]>;
     getItemById: (id: number) => T | undefined;
@@ -126,7 +126,7 @@ async function runTheLearningSamples() {
   class FoodModel implements Model<FoodProduct> {
     public items: FoodProduct[] | undefined;
 
-    constructor(public url: string) {}
+    constructor(public url: string) { }
 
     async getItems(): Promise<FoodProduct[]> {
       this.items = await getList<FoodProduct>(this.url);
@@ -140,8 +140,8 @@ async function runTheLearningSamples() {
 
   const foodModel = new FoodModel(productsURL);
   const foodProducts = await foodModel.getItems();
-  
-  console.log(prefix + ' Generics Classes');  
+
+  console.log(prefix + ' Generics Classes');
   console.table(foodProducts);
 
 
@@ -154,5 +154,19 @@ async function runTheLearningSamples() {
   console.log(prefix + ' Generics Classe');
   console.table(genericFoodModel.items);
   console.table(genericCustomersModel.items);
+
+  const model: FoodModel = new FoodModel(productsURL);
+  await model.getItems();
+  const foodItem: Readonly<FoodProduct | undefined> = model.getItemById(10);
+  if (foodItem) {
+    // The following lines will cause an error because foodItem is readonly
+    // foodItem.name = 'some name';
+    // foodItem.icon = 'fa fa-apple';
+  }
+
+  const pear = { name: 'pear' };
+  //  const pearFood: FoodProduct = pear;
+  const pearFood: Partial<FoodProduct> = pear; // Partial allows partial properties of FoodProduct
+
 }
 
